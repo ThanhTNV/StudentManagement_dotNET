@@ -36,14 +36,20 @@ namespace StudentManagement.Infrastructure.Persistance.Repositories
 
         async Task<User?> IUserRepository.GetUserByEmailAndPassword(string email, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && HashUtils.VerifyPasswordBcrypt(password, u.Password));
-            return user;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user is null)
+                return null;
+            var isValidLogin = HashUtils.VerifyPasswordBcrypt(password, user.Password);
+            return isValidLogin ? user : null;
         }
 
         async Task<User?> IUserRepository.GetUserByUsernameAndPassword(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username && HashUtils.VerifyPasswordBcrypt(password, u.Password));
-            return user;
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            if (user is null)
+                return null;
+            var isValidLogin = HashUtils.VerifyPasswordBcrypt(password, user.Password);
+            return isValidLogin ? user : null;
         }
 
         async Task<IEnumerable<User>> IUserRepository.GetUsers(Expression<Func<User, bool>> predicate)

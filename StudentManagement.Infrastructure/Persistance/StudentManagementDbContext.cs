@@ -8,10 +8,11 @@ using StudentManagement.Domain.Entities;
 
 namespace StudentManagement.Infrastructure.Persistance
 {
-    public class StudentManagementDbContext : DbContext
+    public partial class StudentManagementDbContext : DbContext
     {
-        public DbSet<Student> Students { get; set; }
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
+
+        public virtual DbSet<User> Users { get; set; }
 
         // Add this constructor for dependency injection
         public StudentManagementDbContext(DbContextOptions<StudentManagementDbContext> options)
@@ -33,28 +34,17 @@ namespace StudentManagement.Infrastructure.Persistance
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure your entity relationships, constraints, etc.
-            // Example:
-            // modelBuilder.Entity<Student>()
-            //     .HasMany(s => s.Courses)
-            //     .WithMany(c => c.Students);
-            modelBuilder.Entity<User>(
-                entity =>
-                    {
-                        entity.ToTable("Users");
-                        entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                        entity.HasIndex(e => e.Username).IsUnique();
-                    }
-            );
-            modelBuilder.Entity<Student>(
-                entity =>
-                {
-                    entity.ToTable("Students");
-                    entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                }
-            );
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.Username, "IX_Users_Username").IsUnique();
+
+                entity.Property(e => e.Name).HasDefaultValue("");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

@@ -24,8 +24,7 @@ namespace StudentManagement.API.Controllers
         {
             var user = await _userService.Login(new LoginUserModel
             {
-                Username = request.Email,
-                Email = request.Email,
+                EmailOrUsername = request.Email,
                 Password = request.Password
             });
             if (user is null)

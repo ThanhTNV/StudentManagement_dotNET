@@ -19,9 +19,9 @@ namespace StudentManagement.Application.Services
         }
         async Task<User?> IUserService.Login(LoginUserModel model)
         {
-            var user = await _repo.GetUserByEmailAndPassword(model.Email, model.Password);
+            var user = await _repo.GetUserByEmailAndPassword(model.EmailOrUsername, model.Password);
 
-            user ??= await _repo.GetUserByUsernameAndPassword(model.Username, model.Password);
+            user ??= await _repo.GetUserByUsernameAndPassword(model.EmailOrUsername, model.Password);
 
             return user;
         }

@@ -9,10 +9,8 @@ namespace StudentManagement.Application.Models
 {
     public class LoginUserModel
     {
-        [EmailAddress]
-        public string Email { get; set; } = "";
         [MaxLength(50), MinLength(2)]
-        public string Username { get; set; } = "";
+        public string EmailOrUsername { get; set; } = "";
         [MaxLength(16), MinLength(8)]
         public string Password { get; set; } = "";
     }

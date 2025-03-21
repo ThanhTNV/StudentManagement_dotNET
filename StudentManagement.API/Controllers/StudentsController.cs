@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace StudentManagement.API.Controllers
 {
     [Route("api/students")]
     [ApiController]
+    [Authorize]
     public class StudentsController : ControllerBase
     {
         private IStudentService _service;
