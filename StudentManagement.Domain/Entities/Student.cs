@@ -15,6 +15,7 @@ namespace StudentManagement.Domain.Entities
         [MaxLength(100)]
         public string Name { get; set; } = "";
         private int _yob;
+        [Required]
         public int Yob
         {
             get => _yob;

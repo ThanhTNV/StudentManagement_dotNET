@@ -61,6 +61,7 @@ namespace StudentManagement.API.Configuration
             });
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStudentService, StudentService>();
         }
 
         public static void ConfigInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -74,6 +75,8 @@ namespace StudentManagement.API.Configuration
             );
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+
         }
     }
 }
