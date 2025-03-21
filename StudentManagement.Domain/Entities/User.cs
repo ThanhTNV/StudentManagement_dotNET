@@ -20,5 +20,7 @@ namespace StudentManagement.Domain.Entities
         [Required]
         [MaxLength(16), MinLength(8)]
         public string Password { get; set; } = "";
+        public string Name { get; set; } = "";
+        public int Yob { get; set; }
     }
 }
